@@ -89,7 +89,6 @@ public class Practice {
           }
       }
     }
-    
     Collections.sort(answer);
     return answer;
   }
@@ -105,7 +104,30 @@ public class Practice {
    * @return a sorted list of all reachable vertex values
    */
   public static List<Integer> sortedReachable(Map<Integer, Set<Integer>> graph, int starting) {
-    return null;
+    List<Integer> answer = new ArrayList<>();
+    
+    if(!graph.containsKey(starting)){
+      return answer;
+    }
+    Set<Integer> visited = new HashSet<>();
+    Stack<Integer> stack = new Stack<>();
+
+    stack.push(starting);
+    visited.add(starting);
+    
+    while (!stack.isEmpty()) { 
+      Integer cur = stack.pop();  
+      answer.add(cur);
+
+      for (Integer neighbor : graph.get(cur)) {
+          if(visited.add(neighbor)){
+            stack.push(neighbor);
+          }
+      }
+    }
+
+    Collections.sort(answer);
+    return answer;
   }
 
   /**
