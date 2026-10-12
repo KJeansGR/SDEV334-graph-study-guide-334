@@ -1,6 +1,4 @@
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Practice {
 
@@ -25,7 +23,29 @@ public class Practice {
    * @return the number of vertices with odd values reachable from the starting vertex
    */
   public static int oddVertices(Vertex<Integer> starting) {
-    return 0;
+    if(starting == null){
+      return 0;
+    }
+    Set<Vertex<Integer>> visited = new HashSet<>();
+    Set<Vertex<Integer>> answer = new HashSet<>();
+    Stack<Vertex<Integer>> stack = new Stack<>();
+
+    stack.push(starting);
+    
+    while (!stack.isEmpty()) { 
+      Vertex<Integer> cur = stack.pop();  
+      visited.add(cur);
+
+      if(cur.data%2 != 0){
+        answer.add(cur);
+      }
+      for (Vertex<Integer> neighbor : cur.neighbors) {
+          if(!visited.contains(neighbor)){
+            stack.push(neighbor);
+          }
+      }
+    }
+    return answer.size();
   }
 
   /**
@@ -47,7 +67,31 @@ public class Practice {
    * @return a sorted list of all reachable vertex values by 
    */
   public static List<Integer> sortedReachable(Vertex<Integer> starting) {
-    return null;
+    
+    List<Integer> answer = new ArrayList<>();
+    
+    if(starting == null){
+      return answer;
+    }
+
+    Set<Vertex<Integer>> visited = new HashSet<>();
+    Stack<Vertex<Integer>> stack = new Stack<>();
+
+    stack.push(starting);
+    
+    while (!stack.isEmpty()) { 
+      Vertex<Integer> cur = stack.pop();  
+      visited.add(cur);
+      answer.add(cur.data);
+      for (Vertex<Integer> neighbor : cur.neighbors) {
+          if(!visited.contains(neighbor)){
+            stack.push(neighbor);
+          }
+      }
+    }
+    
+    Collections.sort(answer);
+    return answer;
   }
 
   /**
