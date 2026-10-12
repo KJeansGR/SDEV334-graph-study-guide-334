@@ -267,7 +267,7 @@ public class Practice {
           }
       }
     }
-    
+
     return false;
   }
 
@@ -339,6 +339,24 @@ public class Practice {
    * @return an unsorted list of next moves
    */
   public static List<int[]> nextMoves(char[][] board, int[] current, int[][] directions) {
-    return null;
+    
+    List<int[]> answer = new ArrayList<>();
+    int curX = current[0];
+    int curY = current[1];
+    
+    for(int[] dirs : directions){
+      
+      int possibleX = curX + dirs[0];
+      int possibleY = curY + dirs[1];
+
+      if (possibleX >= 0 && possibleX < board.length
+          && possibleY >= 0 && possibleY < board[0].length
+          && board[possibleX][possibleY] != 'X' ) {
+          answer.add(new int[]{possibleX, possibleY});
+      }
+    
+    }
+    
+    return answer;
   }
 }
