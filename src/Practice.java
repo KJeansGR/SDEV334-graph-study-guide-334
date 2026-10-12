@@ -225,9 +225,12 @@ public class Practice {
       }
     }
 
-    // if true both should be in the visited set otherwise there is a disconnection or non-exsistent key for starting or ending
+    // if true both should be in the visited set otherwise 
+    // there is a disconnection or non-exsistent key for starting or ending
     return visited.contains(ending);
+
   }
+
 
   /**
    * Returns true if a professional has anyone in their extended network (reachable through any number of links)
@@ -239,6 +242,32 @@ public class Practice {
    * @return true if a person in the extended network works at the specified company, false otherwise
    */
   public static boolean hasExtendedConnectionAtCompany(Professional person, String companyName) {
+    if(person == null){ 
+      return false;
+    }
+
+    Set<Professional> visited = new HashSet<>();
+    Stack<Professional> stack = new Stack<>();
+    Set<String> visitedCompany = new HashSet<>();
+
+    stack.push(person);
+    visited.add(person);
+
+    while (!stack.isEmpty()) { 
+      Professional cur = stack.pop();  
+
+      visitedCompany.add(cur.getCompany());
+      if(visitedCompany.contains(companyName)){
+        return true;
+      }
+
+      for (Professional neighbor : cur.getConnections()) {
+          if(visited.add(neighbor)){
+            stack.push(neighbor);
+          }
+      }
+    }
+    
     return false;
   }
 
